@@ -24,9 +24,9 @@
             day = Math.floor(time / 12);
         }
         let distTime = Math.round(time - day * 12);
-        return `${animal.name} подолає 1000 км за: ${day} дн. та ${distTime} год.`;
+        console.log(`${animal.name} подолає 1000 км за: ${day} дн. та ${distTime} год.`);
     }
-    console.log(howLong(1000, animal));
+    howLong(1000, animal);
 
     function detailedAnimal(animal, detailedName){
         animal.name = `${animal.name} ${detailedName}`;
@@ -162,7 +162,7 @@
                 globalSum.push(itemSum);
             }
         }
-        return globalSum.reduce((a, b) => a + b);
+        return globalSum.reduce((sum, current) => sum + current, 0);
     };
     console.log(`Сума усіх покупок: ${sumAllPurchases(shoppingList)}`);
 
@@ -189,6 +189,49 @@
     decreaseGoods(shoppingList, "bread", 1);
     console.log(`After change: ${shoppingList.bread.count}`);
 
-    //TODO: 
-//  4. Задана колекція [{name: "Yura", age: 55, hobby: ["films", "games", "hiking"], type: "Admin"}, {}, {},{}]. Вивести всіх адмінів. 
-//Вивести середній вік усіх працівників. Вивести тільки унікальні хоббі працівників.
+//  4. Задана колекція [{name: "Yura", age: 55, hobby: ["films", "games", "hiking"], type: "Admin"}, {}, {},{}]. 
+//  Вивести всіх адмінів. 
+//  Вивести середній вік усіх працівників. 
+//  Вивести тільки унікальні хоббі працівників.
+
+    let employees = [
+        {name: "Yura", age: 55, hobby: ["films", "games", "hiking"], type: "Admin"},
+        {name: "Alex", age: 48, hobby: ["snorkerling", "reading"], type: "User"},
+        {name: "Jack", age: 26, hobby: ["skating", "tennis playing", "games"], type: "User"},
+        {name: "Roman", age: 31, hobby: ["painting", "music", "films"], type: "Admin"},
+        {name: "Yan", age: 37, hobby: ["basketball", "fishing"], type: "User"}
+    ];
+
+    //  Вивід всіх адмінів
+    let adminsOutput = (arr) => {
+        for(let item in arr) {
+            if(arr[item].type === "Admin") {
+                console.log(`${arr[item].name}, role: ${arr[item].type}`);
+            }
+        }
+    };
+    adminsOutput(employees);
+
+    //  Середній вік працівників
+    let averageAge = (arr) => {
+        let ageSum = 0;
+        for(let item in arr) {
+            ageSum += arr[item].age;
+        }
+        let avgAge = ageSum / arr.length;
+        console.log(`Середній вік працівників: ${avgAge}`);
+    };
+    averageAge(employees);
+
+    //  Унікальні хоббі
+    let uniqueHobbies = (arr) => {
+        let hobbiesArr = [];
+        for (let i = 0; i < arr.length; i++) {
+            for (j = 0; j < arr[i].hobby.length; j++) {
+                hobbiesArr.push(arr[i].hobby[j]);
+            }
+        }
+        let uHobbies = Array.from(new Set(hobbiesArr));
+        console.log(`Унікальні хобі: ${uHobbies.join(", ")}`);
+    };
+    uniqueHobbies(employees);
